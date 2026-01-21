@@ -1,0 +1,2138 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Марпосадкабель | ИИ-Ассистент по тендерам</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background-color: #1a1a1a;
+      color: #ffffff;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background-color: rgba(26, 26, 26, 0.95);
+      border-bottom: 1px solid #3a3a3a;
+      backdrop-filter: blur(12px);
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #f5a623, #e8842c);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .logo-text {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .logo-text .company { color: #999999; }
+    .logo-text .ai { color: #f5a623; }
+
+    nav {
+      display: flex;
+      gap: 32px;
+    }
+
+    nav button {
+      background: none;
+      border: none;
+      color: #999999;
+      cursor: pointer;
+      font-size: 14px;
+      transition: color 0.2s;
+      padding: 8px 0;
+    }
+
+    nav button:hover {
+      color: #ffffff;
+    }
+
+    nav button.active {
+      color: #f5a623;
+      font-weight: 500;
+    }
+
+    .status-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background-color: rgba(76, 175, 80, 0.1);
+      border: 1px solid rgba(76, 175, 80, 0.3);
+      border-radius: 9999px;
+      font-size: 12px;
+      color: #4caf50;
+      font-weight: 500;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background-color: #4caf50;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    /* Main Content */
+    main {
+      padding: 32px 0;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background-color: #2a2a2a;
+      border: 1px solid #3a3a3a;
+      border-radius: 9999px;
+      font-size: 12px;
+      color: #999999;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+
+    .hero .highlight {
+      color: #f5a623;
+    }
+
+    .hero p {
+      max-width: 800px;
+      margin: 0 auto;
+      color: #999999;
+      font-size: 16px;
+    }
+
+    /* Grid */
+    .grid {
+      display: grid;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .grid-2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+    .grid-4 { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+
+    /* Card */
+    .card {
+      background-color: #2a2a2a;
+      border: 1px solid #3a3a3a;
+      border-radius: 12px;
+      padding: 24px;
+      transition: all 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(245, 166, 35, 0.5);
+      box-shadow: 0 10px 30px rgba(245, 166, 35, 0.1);
+    }
+
+    .card-small {
+      padding: 16px;
+    }
+
+    .stat-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, transparent, #f5a623, transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .stat-card:hover::after {
+      opacity: 1;
+    }
+
+    .stat-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: #999999;
+      margin-bottom: 4px;
+    }
+
+    .stat-value {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .stat-change {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .stat-change.up { color: #4caf50; }
+    .stat-change.down { color: #f44336; }
+
+    .stat-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #2a2a2a;
+    }
+
+    /* Chat */
+    .chat-container {
+      display: flex;
+      flex-direction: column;
+      height: 480px;
+      overflow: hidden;
+    }
+
+    .chat-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px;
+      background-color: #222222;
+      border-bottom: 1px solid #3a3a3a;
+    }
+
+    .chat-header-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .chat-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #f5a623, #e8842c);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    .chat-title {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .chat-subtitle {
+      font-size: 12px;
+      color: #999999;
+    }
+
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .message {
+      display: flex;
+      max-width: 85%;
+    }
+
+    .message.user {
+      align-self: flex-end;
+    }
+
+    .message.assistant {
+      align-self: flex-start;
+    }
+
+    .message-content {
+      padding: 12px;
+      border-radius: 12px;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .message.user .message-content {
+      background: linear-gradient(135deg, #f5a623, #e8842c);
+      color: #1a1a1a;
+      border-bottom-right-radius: 4px;
+    }
+
+    .message.assistant .message-content {
+      background-color: #222222;
+      border: 1px solid #3a3a3a;
+      border-bottom-left-radius: 4px;
+    }
+
+    .message-time {
+      font-size: 12px;
+      color: #666666;
+      margin-top: 4px;
+      padding: 0 8px;
+    }
+
+    .message.user .message-time {
+      text-align: right;
+    }
+
+    .typing-indicator {
+      display: flex;
+      gap: 4px;
+      padding: 12px;
+      background-color: #222222;
+      border: 1px solid #3a3a3a;
+      border-radius: 12px;
+      border-bottom-left-radius: 4px;
+      width: fit-content;
+    }
+
+    .typing-dot {
+      width: 8px;
+      height: 8px;
+      background-color: #f5a623;
+      border-radius: 50%;
+      animation: typing 1.4s infinite;
+    }
+
+    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes typing {
+      0%, 60%, 100% { transform: translateY(0); }
+      30% { transform: translateY(-8px); }
+    }
+
+    .chat-input-area {
+      padding: 12px;
+      background-color: #222222;
+      border-top: 1px solid #3a3a3a;
+    }
+
+    .chat-input-wrapper {
+      display: flex;
+      gap: 8px;
+    }
+
+    .chat-input {
+      flex: 1;
+      padding: 10px 12px;
+      background-color: #2a2a2a;
+      border: 1px solid #3a3a3a;
+      border-radius: 8px;
+      color: #ffffff;
+      font-size: 14px;
+    }
+
+    .chat-input:focus {
+      outline: none;
+      border-color: #f5a623;
+      box-shadow: 0 0 0 2px rgba(245, 166, 35, 0.2);
+    }
+
+    .chat-tags {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+
+    .chat-tag {
+      padding: 4px 8px;
+      background-color: #2a2a2a;
+      border: 1px solid #3a3a3a;
+      border-radius: 6px;
+      font-size: 12px;
+      color: #999999;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .chat-tag:hover {
+      border-color: #f5a623;
+      color: #ffffff;
+    }
+
+    /* Button */
+    .btn {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #f5a623, #e8842c);
+      color: #1a1a1a;
+    }
+
+    .btn-primary:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(245, 166, 35, 0.3);
+    }
+
+    .btn-icon {
+      width: 36px;
+      height: 36px;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-outline {
+      background-color: transparent;
+      border: 1px solid #3a3a3a;
+      color: #ffffff;
+    }
+
+    .btn-outline:hover {
+      background-color: #2a2a2a;
+    }
+
+    .btn-sm {
+      padding: 6px 12px;
+      font-size: 13px;
+    }
+
+    .btn-ghost {
+      background-color: transparent;
+      color: #999999;
+    }
+
+    .btn-ghost:hover {
+      background-color: #2a2a2a;
+      color: #ffffff;
+    }
+
+    /* Tender Card */
+    .tender-item {
+      padding: 16px;
+      border-bottom: 1px solid #3a3a3a;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .tender-item:hover {
+      background-color: rgba(34, 34, 34, 0.5);
+    }
+
+    .tender-item:last-child {
+      border-bottom: none;
+    }
+
+    .tender-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .tender-title {
+      flex: 1;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    .tender-match {
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .match-high { color: #4caf50; }
+    .match-medium { color: #f5a623; }
+
+    .tender-tags {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .tag-price {
+      background-color: rgba(245, 166, 35, 0.1);
+      color: #f5a623;
+    }
+
+    .tag-date {
+      background-color: #222222;
+      color: #999999;
+    }
+
+    .tender-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: #999999;
+    }
+
+    /* Table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    thead {
+      background-color: #222222;
+    }
+
+    th {
+      padding: 16px;
+      text-align: left;
+      font-size: 12px;
+      font-weight: 600;
+      color: #999999;
+      text-transform: uppercase;
+    }
+
+    td {
+      padding: 16px;
+      border-bottom: 1px solid #3a3a3a;
+    }
+
+    tbody tr {
+      transition: background-color 0.2s;
+    }
+
+    tbody tr:hover {
+      background-color: rgba(34, 34, 34, 0.5);
+    }
+
+    /* Progress Bar */
+    .progress-bar {
+      height: 8px;
+      background-color: #222222;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #f5a623, #e8842c);
+      border-radius: 4px;
+      transition: width 0.5s;
+    }
+
+    .progress-small {
+      height: 12px;
+      width: 96px;
+    }
+
+    /* Status Badge */
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 8px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .status-active {
+      background-color: rgba(92, 158, 255, 0.1);
+      color: #5c9eff;
+    }
+
+    .status-submitted {
+      background-color: rgba(245, 166, 35, 0.1);
+      color: #f5a623;
+    }
+
+    .status-won {
+      background-color: rgba(76, 175, 80, 0.1);
+      color: #4caf50;
+    }
+
+    .status-lost {
+      background-color: rgba(244, 67, 54, 0.1);
+      color: #f44336;
+    }
+
+    /* Filter Buttons */
+    .filter-group {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .filter-btn {
+      padding: 8px 16px;
+      background-color: transparent;
+      border: 1px solid #3a3a3a;
+      border-radius: 8px;
+      color: #ffffff;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .filter-btn.active {
+      background: linear-gradient(135deg, #f5a623, #e8842c);
+      border-color: #f5a623;
+      color: #1a1a1a;
+    }
+
+    .filter-btn:hover:not(.active) {
+      background-color: #2a2a2a;
+    }
+
+    /* Input */
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="number"],
+    select {
+      width: 100%;
+      padding: 10px 16px;
+      background-color: #222222;
+      border: 1px solid #3a3a3a;
+      border-radius: 8px;
+      color: #ffffff;
+      font-size: 14px;
+    }
+
+    input:focus,
+    select:focus {
+      outline: none;
+      border-color: #f5a623;
+      box-shadow: 0 0 0 2px rgba(245, 166, 35, 0.2);
+    }
+
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: #ffffff;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-hint {
+      font-size: 12px;
+      color: #999999;
+      margin-top: 4px;
+    }
+
+    /* Checkbox */
+    .checkbox-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .checkbox-label input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+    }
+
+    /* Toggle Switch */
+    .toggle-switch {
+      position: relative;
+      width: 44px;
+      height: 24px;
+      background-color: #666666;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .toggle-switch.active {
+      background-color: #f5a623;
+    }
+
+    .toggle-switch::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 20px;
+      height: 20px;
+      background-color: #ffffff;
+      border-radius: 50%;
+      transition: transform 0.2s;
+    }
+
+    .toggle-switch.active::after {
+      transform: translateX(20px);
+    }
+
+    /* Chart */
+    .chart-item {
+      margin-bottom: 16px;
+    }
+
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .chart-label {
+      font-size: 14px;
+      color: #999999;
+    }
+
+    .chart-value {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    /* Circle Chart */
+    .circle-chart {
+      position: relative;
+      width: 192px;
+      height: 192px;
+      margin: 0 auto;
+    }
+
+    .circle-chart-label {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+
+    .circle-chart-value {
+      font-size: 36px;
+      font-weight: 700;
+    }
+
+    .circle-chart-text {
+      font-size: 14px;
+      color: #999999;
+    }
+
+    /* Legend */
+    .legend {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .legend-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px;
+      background-color: rgba(76, 175, 80, 0.1);
+      border-radius: 8px;
+    }
+
+    .legend-item.lost {
+      background-color: rgba(244, 67, 54, 0.1);
+    }
+
+    .legend-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+    }
+
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .legend-dot.won { background-color: #4caf50; }
+    .legend-dot.lost { background-color: #f44336; }
+
+    .legend-value {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    /* Category Card */
+    .category-card {
+      background-color: #222222;
+      padding: 16px;
+      border-radius: 12px;
+    }
+
+    .category-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .category-success {
+      font-size: 12px;
+      color: #999999;
+    }
+
+    .category-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .category-desc {
+      font-size: 12px;
+      color: #999999;
+      margin-bottom: 8px;
+    }
+
+    .category-amount {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    /* Integration Item */
+    .integration-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px;
+      background-color: #222222;
+      border: 1px solid #3a3a3a;
+      border-radius: 8px;
+      margin-bottom: 12px;
+    }
+
+    .integration-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .integration-status {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .integration-status.connected { background-color: #4caf50; }
+    .integration-status.disconnected { background-color: #666666; }
+
+    .integration-name {
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .integration-url {
+      font-size: 12px;
+      color: #999999;
+    }
+
+    /* Notification Item */
+    .notification-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 12px;
+      background-color: #222222;
+      border: 1px solid #3a3a3a;
+      border-radius: 8px;
+      margin-bottom: 12px;
+    }
+
+    .notification-content {
+      flex: 1;
+    }
+
+    .notification-title {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .notification-desc {
+      font-size: 12px;
+      color: #999999;
+    }
+
+    /* Danger Zone */
+    .danger-zone {
+      background-color: rgba(244, 67, 54, 0.05);
+      border: 1px solid rgba(244, 67, 54, 0.5);
+      padding: 24px;
+      border-radius: 12px;
+      margin-top: 24px;
+    }
+
+    .danger-zone-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .danger-zone h3 {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .danger-zone p {
+      color: #999999;
+      margin-bottom: 16px;
+    }
+
+    .danger-zone .btn-outline {
+      border-color: rgba(244, 67, 54, 0.5);
+      color: #f44336;
+    }
+
+    .danger-zone .btn-outline:hover {
+      background-color: rgba(244, 67, 54, 0.1);
+    }
+
+    /* Utility Classes */
+    .hidden { display: none; }
+    .flex { display: flex; }
+    .flex-wrap { flex-wrap: wrap; }
+    .gap-2 { gap: 8px; }
+    .gap-3 { gap: 12px; }
+    .gap-4 { gap: 16px; }
+    .items-center { align-items: center; }
+    .justify-between { justify-content: space-between; }
+    .mb-2 { margin-bottom: 8px; }
+    .mb-3 { margin-bottom: 12px; }
+    .mb-4 { margin-bottom: 16px; }
+    .mb-6 { margin-bottom: 24px; }
+    .mt-2 { margin-top: 8px; }
+    .mt-6 { margin-top: 24px; }
+    .text-center { text-align: center; }
+    .text-sm { font-size: 14px; }
+    .text-xs { font-size: 12px; }
+    .font-semibold { font-weight: 600; }
+    .font-bold { font-weight: 700; }
+    .text-muted { color: #999999; }
+    .overflow-auto { overflow-y: auto; max-height: 380px; }
+    
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #222222;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #3a3a3a;
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #4a4a4a;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav { display: none; }
+      .grid-4, .grid-3, .grid-2 { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 28px; }
+      .status-badge { display: none; }
+    }
+
+    /* Icons (using Unicode symbols) */
+    .icon { font-size: 20px; }
+    .icon-sm { font-size: 16px; }
+    .icon-xs { font-size: 14px; }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">
+          <div class="logo-icon">✨</div>
+          <div class="logo-text">
+            <span class="company">Марпосадкабель</span> <span class="ai">AI</span>
+          </div>
+        </div>
+
+        <nav id="mainNav">
+          <button class="active" data-tab="dashboard">Дашборд</button>
+          <button data-tab="tenders">Тендеры</button>
+          <button data-tab="analytics">Аналитика</button>
+          <button data-tab="settings">Настройки</button>
+        </nav>
+
+        <div class="status-badge">
+          <div class="status-dot"></div>
+          <span>Система активна</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container">
+    <!-- Dashboard Tab -->
+    <div id="tab-dashboard" class="tab-content">
+      <div class="hero">
+        <div class="hero-badge">
+          <span class="icon-xs">🤖</span>
+          <span>Powered by AI</span>
+        </div>
+        <h1>ИИ-платформа для <span class="highlight">автоматизации тендеров</span></h1>
+        <p>Повышение эффективности участия в тендерах за счет автоматического анализа, оценки релевантности и оптимизации процессов</p>
+      </div>
+
+      <!-- Stats -->
+      <div class="grid grid-4 mb-6">
+        <div class="card stat-card">
+          <div class="stat-header">
+            <div>
+              <div class="stat-label">Выручка за месяц</div>
+              <div class="stat-value">₽12.4М</div>
+              <div class="stat-change up">
+                <span>↗</span>
+                <span>+18%</span>
+              </div>
+            </div>
+            <div class="stat-icon" style="color: #4caf50;">💰</div>
+          </div>
+        </div>
+
+        <div class="card stat-card">
+          <div class="stat-header">
+            <div>
+              <div class="stat-label">Предотвращенные потери</div>
+              <div class="stat-value">₽2.8М</div>
+              <div class="stat-change up">
+                <span>↗</span>
+                <span>+24%</span>
+              </div>
+            </div>
+            <div class="stat-icon" style="color: #f5a623;">📈</div>
+          </div>
+        </div>
+
+        <div class="card stat-card">
+          <div class="stat-header">
+            <div>
+              <div class="stat-label">Время экономии</div>
+              <div class="stat-value">84%</div>
+              <div class="stat-change up">
+                <span>↗</span>
+                <span>+12%</span>
+              </div>
+            </div>
+            <div class="stat-icon" style="color: #5c9eff;">⏰</div>
+          </div>
+        </div>
+
+        <div class="card stat-card">
+          <div class="stat-header">
+            <div>
+              <div class="stat-label">Тендеров выиграно</div>
+              <div class="stat-value">47/68</div>
+              <div class="stat-change up">
+                <span>↗</span>
+                <span>69%</span>
+              </div>
+            </div>
+            <div class="stat-icon" style="color: #ffc857;">🏆</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Detailed Metrics -->
+      <div class="grid grid-4 mb-6">
+        <div class="card card-small" style="background-color: #222222;">
+          <div class="flex items-center justify-between mb-2">
+            <div style="background-color: rgba(245, 166, 35, 0.1); padding: 6px; border-radius: 6px;">
+              <span style="color: #f5a623;">📄</span>
+            </div>
+            <span class="text-xs text-muted">этот месяц</span>
+          </div>
+          <div style="font-size: 24px; font-weight: 700; margin-bottom: 4px;">68</div>
+          <div class="text-xs text-muted">Подано заявок</div>
+        </div>
+
+        <div class="card card-small" style="background-color: #222222;">
+          <div class="flex items-center justify-between mb-2">
+            <div style="background-color: rgba(245, 166, 35, 0.1); padding: 6px; border-radius: 6px;">
+              <span style="color: #f5a623;">⏰</span>
+            </div>
+            <span class="text-xs text-muted">активно</span>
+          </div>
+          <div style="font-size: 24px; font-weight: 700; margin-bottom: 4px;">21</div>
+          <div class="text-xs text-muted">В обработке</div>
+        </div>
+
+        <div class="card card-small" style="background-color: #222222;">
+          <div class="flex items-center justify-between mb-2">
+            <div style="background-color: rgba(245, 166, 35, 0.1); padding: 6px; border-radius: 6px;">
+              <span style="color: #f5a623;">📈</span>
+            </div>
+            <span class="text-xs text-muted">по выигранным</span>
+          </div>
+          <div style="font-size: 24px; font-weight: 700; margin-bottom: 4px;">23.4%</div>
+          <div class="text-xs text-muted">Средняя маржа</div>
+        </div>
+
+        <div class="card card-small" style="background-color: #222222;">
+          <div class="flex items-center justify-between mb-2">
+            <div style="background-color: rgba(245, 166, 35, 0.1); padding: 6px; border-radius: 6px;">
+              <span style="color: #f5a623;">⚡</span>
+            </div>
+            <span class="text-xs text-muted">среднее время</span>
+          </div>
+          <div style="font-size: 24px; font-weight: 700; margin-bottom: 4px;">4.2ч</div>
+          <div class="text-xs text-muted">Скорость ответа</div>
+        </div>
+      </div>
+
+      <!-- Main Grid -->
+      <div style="display: grid; grid-template-columns: 1fr 400px; gap: 24px; margin-bottom: 24px;">
+        <!-- Chat -->
+        <div class="card" style="padding: 0;">
+          <div class="chat-container">
+            <div class="chat-header">
+              <div class="chat-header-info">
+                <div class="chat-icon">🤖</div>
+                <div>
+                  <div class="chat-title">ИИ-Ассистент</div>
+                  <div class="chat-subtitle">Анализ тендеров</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="chat-messages" id="chatMessages">
+              <div class="message assistant">
+                <div>
+                  <div class="message-content">
+                    Здравствуйте! Я ИИ-ассистент по тендерам. Могу помочь найти подходящие тендеры для вашей компании.
+                  </div>
+                  <div class="message-time">10:24</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="chat-input-area">
+              <div class="chat-input-wrapper">
+                <input 
+                  type="text" 
+                  id="chatInput" 
+                  class="chat-input" 
+                  placeholder="Найти тендеры на кабельную продукцию..."
+                />
+                <button class="btn btn-primary btn-icon" onclick="sendMessage()">➤</button>
+              </div>
+              <div class="chat-tags">
+                <button class="chat-tag" onclick="quickSearch('Кабельная продукция')">Кабельная продукция</button>
+                <button class="chat-tag" onclick="quickSearch('Промышленность')">Промышленность</button>
+                <button class="chat-tag" onclick="quickSearch('Телекоммуникации')">Телекоммуникации</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Relevant Tenders -->
+        <div class="card" style="padding: 0;">
+          <div class="chat-header">
+            <div class="chat-header-info">
+              <div style="background-color: rgba(245, 166, 35, 0.1); padding: 6px; border-radius: 6px;">
+                <span style="color: #f5a623;">🎯</span>
+              </div>
+              <div class="chat-title">Релевантные тендеры</div>
+            </div>
+            <span style="background-color: #f5a623; color: #1a1a1a; padding: 2px 8px; border-radius: 6px; font-size: 12px; font-weight: 600;">4</span>
+          </div>
+
+          <div class="overflow-auto" id="relevantTenders">
+            <div class="tender-item">
+              <div class="tender-header">
+                <div class="tender-title">Поставка кабельной продукции для инфраструктурного проекта</div>
+                <div class="tender-match match-high">94%</div>
+              </div>
+              <div class="tender-tags">
+                <span class="tag tag-price">💰 ₽8,450,000</span>
+                <span class="tag tag-date">📅 15 мая 2024</span>
+              </div>
+              <div class="tender-meta">
+                <span>Москва</span>
+                <span>•</span>
+                <span>ООО "Стройтехнолоджи"</span>
+              </div>
+            </div>
+
+            <div class="tender-item">
+              <div class="tender-header">
+                <div class="tender-title">Закупка силовых кабелей для промышленного объекта</div>
+                <div class="tender-match match-high">89%</div>
+              </div>
+              <div class="tender-tags">
+                <span class="tag tag-price">💰 ₽5,200,000</span>
+                <span class="tag tag-date">📅 18 мая 2024</span>
+              </div>
+              <div class="tender-meta">
+                <span>Санкт-Петербург</span>
+                <span>•</span>
+                <span>АО "Энергопром"</span>
+              </div>
+            </div>
+
+            <div class="tender-item">
+              <div class="tender-header">
+                <div class="tender-title">Поставка электротехнической продукции</div>
+                <div class="tender-match match-medium">76%</div>
+              </div>
+              <div class="tender-tags">
+                <span class="tag tag-price">💰 ₽3,750,000</span>
+                <span class="tag tag-date">📅 22 мая 2024</span>
+              </div>
+              <div class="tender-meta">
+                <span>Казань</span>
+                <span>•</span>
+                <span>ПАО "Электросеть"</span>
+              </div>
+            </div>
+
+            <div class="tender-item">
+              <div class="tender-header">
+                <div class="tender-title">Кабели связи для телекоммуникационного проекта</div>
+                <div class="tender-match match-medium">71%</div>
+              </div>
+              <div class="tender-tags">
+                <span class="tag tag-price">💰 ₽2,100,000</span>
+                <span class="tag tag-date">📅 25 мая 2024</span>
+              </div>
+              <div class="tender-meta">
+                <span>Нижний Новгород</span>
+                <span>•</span>
+                <span>ООО "Связькомплект"</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Stats -->
+      <div class="grid grid-3">
+        <div class="card card-small">
+          <div class="flex items-center justify-between mb-3">
+            <h4 class="text-sm font-semibold">Успешность участия</h4>
+            <span style="color: #4caf50; font-size: 20px;">✓</span>
+          </div>
+          <div style="font-size: 24px; font-weight: 700; margin-bottom: 4px;">69.1%</div>
+          <div class="text-xs text-muted">Выиграно 47 из 68 тендеров</div>
+        </div>
+
+        <div class="card card-small">
+          <div class="flex items-center justify-between mb-3">
+            <h4 class="text-sm font-semibold">Средняя экономия</h4>
+            <span style="color: #f5a623; font-size: 20px;">📈</span>
+          </div>
+          <div style="font-size: 24px; font-weight: 700; margin-bottom: 4px;">₽2.8М</div>
+          <div class="text-xs text-muted">Предотвращено потерь</div>
+        </div>
+
+        <div class="card card-small">
+          <div class="flex items-center justify-between mb-3">
+            <h4 class="text-sm font-semibold">Автоматизация</h4>
+            <span style="color: #5c9eff; font-size: 20px;">⚡</span>
+          </div>
+          <div style="font-size: 24px; font-weight: 700; margin-bottom: 4px;">84%</div>
+          <div class="text-xs text-muted">Сокращено время</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tenders Tab -->
+    <div id="tab-tenders" class="tab-content hidden">
+      <div class="mb-6">
+        <h2 style="font-size: 30px; font-weight: 700; margin-bottom: 8px;">Управление тендерами</h2>
+        <p class="text-muted">Полный список тендеров с возможностью фильтрации и управления</p>
+      </div>
+
+      <!-- Filters -->
+      <div class="flex items-center justify-between mb-6 flex-wrap gap-4">
+        <div class="filter-group">
+          <button class="filter-btn active" data-filter="all">Все (8)</button>
+          <button class="filter-btn" data-filter="active">Активные (4)</button>
+          <button class="filter-btn" data-filter="submitted">Поданы (2)</button>
+          <button class="filter-btn" data-filter="won">Выиграны (1)</button>
+          <button class="filter-btn" data-filter="lost">Проиграны (1)</button>
+        </div>
+
+        <div class="flex gap-2">
+          <button class="btn btn-outline btn-sm">🔍 Поиск</button>
+          <button class="btn btn-outline btn-sm">🔄 Обновить</button>
+        </div>
+      </div>
+
+      <!-- Tenders Table -->
+      <div class="card" style="padding: 0; overflow-x: auto;">
+        <table id="tendersTable">
+          <thead>
+            <tr>
+              <th>Тендер</th>
+              <th>Цена</th>
+              <th>Совпадение</th>
+              <th>Статус</th>
+              <th>Дедлайн</th>
+              <th>Участники</th>
+              <th>Действия</th>
+            </tr>
+          </thead>
+          <tbody id="tendersTableBody">
+            <!-- Will be filled by JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Analytics Tab -->
+    <div id="tab-analytics" class="tab-content hidden">
+      <div class="mb-6">
+        <h2 style="font-size: 30px; font-weight: 700; margin-bottom: 8px;">Аналитика и отчеты</h2>
+        <p class="text-muted">Подробная статистика по участию в тендерах и финансовым показателям</p>
+      </div>
+
+      <!-- Key Metrics -->
+      <div class="grid grid-4 mb-6">
+        <div class="card" style="padding: 20px;">
+          <div class="flex items-center justify-between mb-3">
+            <div style="background-color: rgba(76, 175, 80, 0.1); padding: 8px; border-radius: 8px;">
+              <span style="color: #4caf50; font-size: 20px;">📈</span>
+            </div>
+            <span class="text-xs" style="color: #4caf50;">+18% к прошлому месяцу</span>
+          </div>
+          <div style="font-size: 30px; font-weight: 700; margin-bottom: 4px;">₽12.4М</div>
+          <div class="text-sm text-muted">Общая выручка</div>
+        </div>
+
+        <div class="card" style="padding: 20px;">
+          <div class="flex items-center justify-between mb-3">
+            <div style="background-color: rgba(245, 166, 35, 0.1); padding: 8px; border-radius: 8px;">
+              <span style="color: #f5a623; font-size: 20px;">📊</span>
+            </div>
+            <span class="text-xs" style="color: #f5a623;">69.1% успеха</span>
+          </div>
+          <div style="font-size: 30px; font-weight: 700; margin-bottom: 4px;">47</div>
+          <div class="text-sm text-muted">Тендеров выиграно</div>
+        </div>
+
+        <div class="card" style="padding: 20px;">
+          <div class="flex items-center justify-between mb-3">
+            <div style="background-color: rgba(92, 158, 255, 0.1); padding: 8px; border-radius: 8px;">
+              <span style="color: #5c9eff; font-size: 20px;">💹</span>
+            </div>
+            <span class="text-xs" style="color: #5c9eff;">+24% эффективность</span>
+          </div>
+          <div style="font-size: 30px; font-weight: 700; margin-bottom: 4px;">₽2.8М</div>
+          <div class="text-sm text-muted">Предотвращено потерь</div>
+        </div>
+
+        <div class="card" style="padding: 20px;">
+          <div class="flex items-center justify-between mb-3">
+            <div style="background-color: rgba(255, 200, 87, 0.1); padding: 8px; border-radius: 8px;">
+              <span style="color: #ffc857; font-size: 20px;">👥</span>
+            </div>
+            <span class="text-xs" style="color: #ffc857;">156 контрагентов</span>
+          </div>
+          <div style="font-size: 30px; font-weight: 700; margin-bottom: 4px;">68</div>
+          <div class="text-sm text-muted">Активных тендеров</div>
+        </div>
+      </div>
+
+      <!-- Charts Grid -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 24px; margin-bottom: 24px;">
+        <!-- Revenue Chart -->
+        <div class="card">
+          <div class="mb-6">
+            <h3 class="text-lg font-semibold mb-1">Динамика выручки</h3>
+            <p class="text-sm text-muted">Помесячная выручка за последние 6 месяцев</p>
+          </div>
+
+          <div id="revenueChart">
+            <div class="chart-item">
+              <div class="chart-header">
+                <span class="chart-label">Ноябрь</span>
+                <span class="chart-value">₽8.2М</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 65%;"></div>
+              </div>
+            </div>
+
+            <div class="chart-item">
+              <div class="chart-header">
+                <span class="chart-label">Декабрь</span>
+                <span class="chart-value">₽9.1М</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 73%;"></div>
+              </div>
+            </div>
+
+            <div class="chart-item">
+              <div class="chart-header">
+                <span class="chart-label">Январь</span>
+                <span class="chart-value">₽10.5М</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 84%;"></div>
+              </div>
+            </div>
+
+            <div class="chart-item">
+              <div class="chart-header">
+                <span class="chart-label">Февраль</span>
+                <span class="chart-value">₽9.8М</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 78%;"></div>
+              </div>
+            </div>
+
+            <div class="chart-item">
+              <div class="chart-header">
+                <span class="chart-label">Март</span>
+                <span class="chart-value">₽11.2М</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 89%;"></div>
+              </div>
+            </div>
+
+            <div class="chart-item">
+              <div class="chart-header">
+                <span class="chart-label">Апрель</span>
+                <span class="chart-value">₽12.4М</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 100%;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Win Rate Chart -->
+        <div class="card">
+          <div class="mb-6">
+            <h3 class="text-lg font-semibold mb-1">Статистика побед</h3>
+            <p class="text-sm text-muted">Соотношение выигранных и проигранных тендеров</p>
+          </div>
+
+          <div class="circle-chart">
+            <svg width="192" height="192" style="transform: rotate(-90deg);">
+              <circle cx="96" cy="96" r="80" fill="none" stroke="#222222" stroke-width="24"/>
+              <circle cx="96" cy="96" r="80" fill="none" stroke="#4caf50" stroke-width="24"
+                      stroke-dasharray="347 155" stroke-linecap="round"/>
+            </svg>
+            <div class="circle-chart-label">
+              <div class="circle-chart-value">69.1%</div>
+              <div class="circle-chart-text">успеха</div>
+            </div>
+          </div>
+
+          <div class="legend">
+            <div class="legend-item">
+              <div class="legend-label">
+                <div class="legend-dot won"></div>
+                <span>Выиграно</span>
+              </div>
+              <div class="legend-value">47 тендеров</div>
+            </div>
+            <div class="legend-item lost">
+              <div class="legend-label">
+                <div class="legend-dot lost"></div>
+                <span>Проиграно</span>
+              </div>
+              <div class="legend-value">21 тендер</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Category Analysis -->
+      <div class="card">
+        <div class="mb-6">
+          <h3 class="text-lg font-semibold mb-1">Анализ по категориям</h3>
+          <p class="text-sm text-muted">Распределение тендеров по категориям и их успешность</p>
+        </div>
+
+        <div class="grid grid-3">
+          <div class="category-card">
+            <div class="category-header">
+              <span style="color: #4caf50; font-size: 20px;">📦</span>
+              <span class="category-success">75% успеха</span>
+            </div>
+            <h4 class="category-title">Кабельная продукция</h4>
+            <div class="category-desc">21 из 28 тендеров выиграно</div>
+            <div class="category-amount">₽5.2М</div>
+          </div>
+
+          <div class="category-card">
+            <div class="category-header">
+              <span style="color: #f5a623; font-size: 20px;">📦</span>
+              <span class="category-success">67% успеха</span>
+            </div>
+            <h4 class="category-title">Промышленное оборудование</h4>
+            <div class="category-desc">10 из 15 тендеров выиграно</div>
+            <div class="category-amount">₽3.1М</div>
+          </div>
+
+          <div class="category-card">
+            <div class="category-header">
+              <span style="color: #5c9eff; font-size: 20px;">📦</span>
+              <span class="category-success">67% успеха</span>
+            </div>
+            <h4 class="category-title">Электротехника</h4>
+            <div class="category-desc">8 из 12 тендеров выиграно</div>
+            <div class="category-amount">₽2.4М</div>
+          </div>
+
+          <div class="category-card">
+            <div class="category-header">
+              <span style="color: #ffc857; font-size: 20px;">📦</span>
+              <span class="category-success">63% успеха</span>
+            </div>
+            <h4 class="category-title">Телекоммуникации</h4>
+            <div class="category-desc">5 из 8 тендеров выиграно</div>
+            <div class="category-amount">₽1.2М</div>
+          </div>
+
+          <div class="category-card">
+            <div class="category-header">
+              <span style="color: #e8842c; font-size: 20px;">📦</span>
+              <span class="category-success">67% успеха</span>
+            </div>
+            <h4 class="category-title">Строительство</h4>
+            <div class="category-desc">2 из 3 тендеров выиграно</div>
+            <div class="category-amount">₽0.4М</div>
+          </div>
+
+          <div class="category-card">
+            <div class="category-header">
+              <span style="color: #9c27b0; font-size: 20px;">📦</span>
+              <span class="category-success">50% успеха</span>
+            </div>
+            <h4 class="category-title">Энергетика</h4>
+            <div class="category-desc">1 из 2 тендеров выиграно</div>
+            <div class="category-amount">₽0.1М</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Settings Tab -->
+    <div id="tab-settings" class="tab-content hidden">
+      <div class="mb-6">
+        <h2 style="font-size: 30px; font-weight: 700; margin-bottom: 8px;">Настройки системы</h2>
+        <p class="text-muted">Управление параметрами платформы и интеграциями</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 24px;">
+        <!-- Company Profile -->
+        <div class="card">
+          <div class="flex items-center gap-3 mb-6">
+            <div style="background-color: rgba(245, 166, 35, 0.1); padding: 8px; border-radius: 8px;">
+              <span style="color: #f5a623; font-size: 20px;">🏢</span>
+            </div>
+            <h3 class="text-lg font-semibold">Профиль компании</h3>
+          </div>
+
+          <div>
+            <div class="form-group">
+              <label>Название компании</label>
+              <input type="text" value="ООО Марпосадкабель">
+            </div>
+
+            <div class="form-group">
+              <label>ИНН</label>
+              <input type="text" value="7708123456">
+            </div>
+
+            <div class="form-group">
+              <label>Адрес</label>
+              <input type="text" value="г. Москва, ул. Примерная, д. 1">
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+              <div class="form-group">
+                <label>Email</label>
+                <input type="email" value="info@mpkabel.ru">
+              </div>
+
+              <div class="form-group">
+                <label>Телефон</label>
+                <input type="tel" value="+7 (495) 123-45-67">
+              </div>
+            </div>
+
+            <button class="btn btn-primary" style="width: 100%;">Сохранить изменения</button>
+          </div>
+        </div>
+
+        <!-- AI Settings -->
+        <div class="card">
+          <div class="flex items-center gap-3 mb-6">
+            <div style="background-color: rgba(245, 166, 35, 0.1); padding: 8px; border-radius: 8px;">
+              <span style="color: #f5a623; font-size: 20px;">🤖</span>
+            </div>
+            <h3 class="text-lg font-semibold">Настройки ИИ</h3>
+          </div>
+
+          <div>
+            <div class="form-group">
+              <label>Минимальное совпадение (%)</label>
+              <input type="number" value="70" min="0" max="100">
+              <div class="form-hint">Тендеры с совпадением ниже этого порога не будут показаны</div>
+            </div>
+
+            <div class="form-group">
+              <label>Автоматическая подача заявок</label>
+              <select>
+                <option>Только с одобрения</option>
+                <option>При совпадении > 90%</option>
+                <option>При совпадении > 95%</option>
+                <option>Всегда отключено</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Приоритет категорий</label>
+              <div class="checkbox-group">
+                <label class="checkbox-label">
+                  <input type="checkbox" checked>
+                  <span class="text-sm">Кабельная продукция</span>
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" checked>
+                  <span class="text-sm">Промышленное оборудование</span>
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" checked>
+                  <span class="text-sm">Электротехника</span>
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" checked>
+                  <span class="text-sm">Телекоммуникации</span>
+                </label>
+              </div>
+            </div>
+
+            <button class="btn btn-primary" style="width: 100%;">Применить настройки</button>
+          </div>
+        </div>
+
+        <!-- Notifications -->
+        <div class="card">
+          <div class="flex items-center gap-3 mb-6">
+            <div style="background-color: rgba(245, 166, 35, 0.1); padding: 8px; border-radius: 8px;">
+              <span style="color: #f5a623; font-size: 20px;">🔔</span>
+            </div>
+            <h3 class="text-lg font-semibold">Уведомления</h3>
+          </div>
+
+          <div>
+            <div class="notification-item">
+              <div class="notification-content">
+                <div class="notification-title">Новые релевантные тендеры</div>
+                <div class="notification-desc">Уведомление при появлении подходящих тендеров</div>
+              </div>
+              <div class="toggle-switch active" onclick="toggleSwitch(this)"></div>
+            </div>
+
+            <div class="notification-item">
+              <div class="notification-content">
+                <div class="notification-title">Истекающие сроки</div>
+                <div class="notification-desc">За 24 часа до истечения срока подачи</div>
+              </div>
+              <div class="toggle-switch active" onclick="toggleSwitch(this)"></div>
+            </div>
+
+            <div class="notification-item">
+              <div class="notification-content">
+                <div class="notification-title">Результаты тендеров</div>
+                <div class="notification-desc">Уведомление о выигрыше/проигрыше</div>
+              </div>
+              <div class="toggle-switch active" onclick="toggleSwitch(this)"></div>
+            </div>
+
+            <div class="notification-item">
+              <div class="notification-content">
+                <div class="notification-title">Системные уведомления</div>
+                <div class="notification-desc">Важные обновления системы</div>
+              </div>
+              <div class="toggle-switch active" onclick="toggleSwitch(this)"></div>
+            </div>
+
+            <div class="notification-item">
+              <div class="notification-content">
+                <div class="notification-title">Еженедельные отчеты</div>
+                <div class="notification-desc">Статистика за неделю каждый понедельник</div>
+              </div>
+              <div class="toggle-switch active" onclick="toggleSwitch(this)"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Integrations -->
+        <div class="card">
+          <div class="flex items-center gap-3 mb-6">
+            <div style="background-color: rgba(245, 166, 35, 0.1); padding: 8px; border-radius: 8px;">
+              <span style="color: #f5a623; font-size: 20px;">🌐</span>
+            </div>
+            <h3 class="text-lg font-semibold">Интеграции</h3>
+          </div>
+
+          <div>
+            <div class="integration-item">
+              <div class="integration-info">
+                <div class="integration-status connected"></div>
+                <div>
+                  <div class="integration-name">Единая информационная система</div>
+                  <div class="integration-url">zakupki.gov.ru</div>
+                </div>
+              </div>
+              <button class="btn btn-outline btn-sm">Настроить</button>
+            </div>
+
+            <div class="integration-item">
+              <div class="integration-info">
+                <div class="integration-status connected"></div>
+                <div>
+                  <div class="integration-name">Электронные торговые площадки</div>
+                  <div class="integration-url">etp-eis.ru</div>
+                </div>
+              </div>
+              <button class="btn btn-outline btn-sm">Настроить</button>
+            </div>
+
+            <div class="integration-item">
+              <div class="integration-info">
+                <div class="integration-status connected"></div>
+                <div>
+                  <div class="integration-name">Коммерческие площадки</div>
+                  <div class="integration-url">b2b-center.ru</div>
+                </div>
+              </div>
+              <button class="btn btn-outline btn-sm">Настроить</button>
+            </div>
+
+            <div class="integration-item">
+              <div class="integration-info">
+                <div class="integration-status disconnected"></div>
+                <div>
+                  <div class="integration-name">1С: Бухгалтерия</div>
+                  <div class="integration-url">1c.ru</div>
+                </div>
+              </div>
+              <button class="btn btn-primary btn-sm">Подключить</button>
+            </div>
+
+            <div class="integration-item">
+              <div class="integration-info">
+                <div class="integration-status connected"></div>
+                <div>
+                  <div class="integration-name">Email SMTP</div>
+                  <div class="integration-url">smtp.gmail.com</div>
+                </div>
+              </div>
+              <button class="btn btn-outline btn-sm">Настроить</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Danger Zone -->
+      <div class="danger-zone">
+        <div class="danger-zone-header">
+          <span style="color: #f44336; font-size: 20px;">⚠️</span>
+          <h3>Опасная зона</h3>
+        </div>
+        <p>Действия в этом разделе необратимы. Пожалуйста, будьте осторожны.</p>
+        <div class="flex gap-3 flex-wrap">
+          <button class="btn btn-outline gap-2">
+            <span>⬇️</span>
+            <span>Экспорт всех данных</span>
+          </button>
+          <button class="btn btn-outline gap-2">
+            <span>🗑️</span>
+            <span>Очистить историю</span>
+          </button>
+          <button class="btn btn-outline gap-2">
+            <span>❌</span>
+            <span>Удалить аккаунт</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Tender Data
+    const tenders = [
+      {
+        id: 1,
+        title: 'Поставка кабельной продукции для инфраструктурного проекта',
+        price: '₽8,450,000',
+        deadline: '15 мая 2024',
+        match: 94,
+        status: 'active',
+        category: 'Кабельная продукция',
+        location: 'Москва',
+        client: 'ООО "Стройтехнолоджи"',
+        participants: 8
+      },
+      {
+        id: 2,
+        title: 'Закупка силовых кабелей для промышленного объекта',
+        price: '₽5,200,000',
+        deadline: '18 мая 2024',
+        match: 89,
+        status: 'active',
+        category: 'Промышленное оборудование',
+        location: 'Санкт-Петербург',
+        client: 'АО "Энергопром"',
+        participants: 12
+      },
+      {
+        id: 3,
+        title: 'Поставка электротехнической продукции',
+        price: '₽3,750,000',
+        deadline: '22 мая 2024',
+        match: 76,
+        status: 'submitted',
+        category: 'Электротехника',
+        location: 'Казань',
+        client: 'ПАО "Электросеть"',
+        participants: 15
+      },
+      {
+        id: 4,
+        title: 'Кабели связи для телекоммуникационного проекта',
+        price: '₽2,100,000',
+        deadline: '25 мая 2024',
+        match: 71,
+        status: 'active',
+        category: 'Телекоммуникации',
+        location: 'Нижний Новгород',
+        client: 'ООО "Связькомплект"',
+        participants: 6
+      },
+      {
+        id: 5,
+        title: 'Поставка низковольтной кабельной продукции',
+        price: '₽4,890,000',
+        deadline: '20 мая 2024',
+        match: 88,
+        status: 'submitted',
+        category: 'Электротехника',
+        location: 'Екатеринбург',
+        client: 'ОАО "УралЭнерго"',
+        participants: 10
+      },
+      {
+        id: 6,
+        title: 'Монтаж кабельных линий для строительства',
+        price: '₽6,300,000',
+        deadline: '28 мая 2024',
+        match: 82,
+        status: 'won',
+        category: 'Строительство',
+        location: 'Новосибирск',
+        client: 'ЗАО "СтройМонтаж"',
+        participants: 9
+      },
+      {
+        id: 7,
+        title: 'Закупка кабельно-проводниковой продукции',
+        price: '₽1,850,000',
+        deadline: '17 мая 2024',
+        match: 79,
+        status: 'active',
+        category: 'Промышленность',
+        location: 'Челябинск',
+        client: 'ООО "ТехСнаб"',
+        participants: 7
+      },
+      {
+        id: 8,
+        title: 'Поставка высоковольтных кабелей',
+        price: '₽9,200,000',
+        deadline: '30 мая 2024',
+        match: 91,
+        status: 'lost',
+        category: 'Энергетика',
+        location: 'Ростов-на-Дону',
+        client: 'ПАО "ЮгЭнерго"',
+        participants: 14
+      },
+    ];
+
+    // Tab Switching
+    const navButtons = document.querySelectorAll('#mainNav button');
+    const tabs = document.querySelectorAll('.tab-content');
+
+    navButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const tabName = button.dataset.tab;
+        
+        // Update nav active state
+        navButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+        
+        // Show corresponding tab
+        tabs.forEach(tab => tab.classList.add('hidden'));
+        document.getElementById(`tab-${tabName}`).classList.remove('hidden');
+      });
+    });
+
+    // Chat Functionality
+    function sendMessage() {
+      const input = document.getElementById('chatInput');
+      const messagesContainer = document.getElementById('chatMessages');
+      const message = input.value.trim();
+      
+      if (!message) return;
+      
+      // Add user message
+      const userTime = new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+      messagesContainer.innerHTML += `
+        <div class="message user">
+          <div>
+            <div class="message-content">${message}</div>
+            <div class="message-time">${userTime}</div>
+          </div>
+        </div>
+      `;
+      
+      input.value = '';
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+      
+      // Show typing indicator
+      messagesContainer.innerHTML += `
+        <div class="message assistant typing">
+          <div class="typing-indicator">
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+          </div>
+        </div>
+      `;
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+      
+      // Simulate AI response
+      setTimeout(() => {
+        const typingElement = messagesContainer.querySelector('.typing');
+        if (typingElement) typingElement.remove();
+        
+        const assistantTime = new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+        messagesContainer.innerHTML += `
+          <div class="message assistant">
+            <div>
+              <div class="message-content">Найдено 4 подходящих тендера на поставку кабельной продукции. Анализирую условия и рассчитываю выгодность участия...</div>
+              <div class="message-time">${assistantTime}</div>
+            </div>
+          </div>
+        `;
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+      }, 1500);
+    }
+
+    function quickSearch(tag) {
+      document.getElementById('chatInput').value = tag;
+      sendMessage();
+    }
+
+    // Handle Enter key in chat input
+    document.getElementById('chatInput').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        sendMessage();
+      }
+    });
+
+    // Tender Filters
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    let currentFilter = 'all';
+
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        currentFilter = button.dataset.filter;
+        
+        // Update active state
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+        
+        // Render tenders
+        renderTendersTable();
+      });
+    });
+
+    // Render Tenders Table
+    function renderTendersTable() {
+      const tbody = document.getElementById('tendersTableBody');
+      
+      const filteredTenders = currentFilter === 'all' 
+        ? tenders 
+        : tenders.filter(t => t.status === currentFilter);
+      
+      tbody.innerHTML = filteredTenders.map(tender => `
+        <tr>
+          <td>
+            <div style="max-width: 400px;">
+              <div class="text-sm font-semibold mb-1">${tender.title}</div>
+              <div class="flex items-center gap-2 text-xs text-muted">
+                <span>📍</span>
+                <span>${tender.location}</span>
+                <span>•</span>
+                <span>${tender.category}</span>
+              </div>
+            </div>
+          </td>
+          <td>
+            <span class="text-sm font-semibold">${tender.price}</span>
+          </td>
+          <td>
+            <div class="flex items-center gap-2">
+              <div class="progress-bar progress-small">
+                <div class="progress-fill" style="width: ${tender.match}%;${tender.match >= 85 ? ' background-color: #4caf50;' : ''}"></div>
+              </div>
+              <span class="text-sm font-semibold">${tender.match}%</span>
+            </div>
+          </td>
+          <td>
+            ${getStatusBadge(tender.status)}
+          </td>
+          <td>
+            <span class="text-sm">${tender.deadline}</span>
+          </td>
+          <td>
+            <span class="text-sm text-muted">${tender.participants} участ.</span>
+          </td>
+          <td>
+            <div class="flex gap-2">
+              <button class="btn btn-ghost" style="padding: 6px;">👁️</button>
+              <button class="btn btn-ghost" style="padding: 6px;">✏️</button>
+            </div>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function getStatusBadge(status) {
+      const badges = {
+        active: '<span class="status status-active">▶️ Активный</span>',
+        submitted: '<span class="status status-submitted">⏰ Подан</span>',
+        won: '<span class="status status-won">✓ Выигран</span>',
+        lost: '<span class="status status-lost">✗ Проигран</span>'
+      };
+      return badges[status] || '';
+    }
+
+    // Toggle Switch
+    function toggleSwitch(element) {
+      element.classList.toggle('active');
+    }
+
+    // Initialize tenders table
+    renderTendersTable();
+  </script>
+</body>
+</html>
